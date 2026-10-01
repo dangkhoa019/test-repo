@@ -15,36 +15,41 @@ plt.rcParams.update({'font.family': 'DejaVu Sans', 'axes.edgecolor': INK, 'axes.
 ease = lambda u: 0.5 - 0.5 * np.cos(np.pi * np.clip(u, 0, 1))
 
 # ---------------- Phụ đề (lời thoại) ----------------
-SUBS = [
- (0, 6, 'Bài 9: Giải thuật giảm gradient — ý tưởng, tốc độ học và các biến thể.'),
- (6, 13, 'Khi hàm mất mát không có nghiệm dạng đóng, ta tìm cực tiểu bằng phương pháp lặp.'),
- (13, 20, 'Gradient chỉ hướng hàm số tăng nhanh nhất, nên ta bước theo hướng ngược lại: −∇J.'),
- (20, 27, 'Công thức cập nhật: w mới bằng w cũ trừ η nhân gradient, trong đó η là tốc độ học.'),
- (27, 34, 'Với J(w) = (w − 3)², w₀ = 0 và η = 0,1: w₁ = 0,6; w₂ = 1,08; w₃ = 1,464 — tiến dần về 3.'),
- (34, 42, 'Với nhiều tham số, gradient luôn vuông góc với đường đồng mức.'),
- (42, 50, 'Mỗi bước đi ngược hướng gradient; càng gần cực tiểu, gradient càng nhỏ nên bước càng ngắn.'),
- (50, 58, 'Thuật toán tự giảm tốc khi tới gần đích mà không cần can thiệp thêm.'),
- (58, 66, 'Tốc độ học η là siêu tham số quan trọng nhất. Xét ba cách chọn trên cùng hàm J(w) = (w − 3)².'),
- (66, 74, 'η quá nhỏ (0,05): thuật toán vẫn hội tụ nhưng cần rất nhiều vòng lặp.'),
- (74, 82, 'η hợp lý (0,3): hàm mất mát giảm nhanh và đều đặn về giá trị tối ưu.'),
- (82, 92, 'η quá lớn (1,05): mỗi bước vượt qua điểm cực tiểu, dao động ngày càng mạnh và phân kỳ.'),
- (92, 100, 'Với hàm lồi mạnh tham số m, gradient Lipschitz hằng số L và η = 1/L, sai số giảm theo cấp số nhân.'),
- (100, 108, 'Hệ số co (1 − m/L) phụ thuộc số điều kiện L/m: đường đồng mức càng dẹt, hội tụ càng chậm.'),
- (108, 120, 'Chuẩn hóa dữ liệu làm đường đồng mức tròn hơn, giảm số điều kiện nên thuật toán hội tụ nhanh hơn rõ rệt.'),
- (120, 128, 'Khi J là trung bình mất mát trên n mẫu, cách ước lượng gradient ở mỗi bước sinh ra ba biến thể.'),
- (128, 137, 'Theo lô: dùng toàn bộ n mẫu, quỹ đạo mượt nhưng chậm khi n lớn. Ngẫu nhiên (SGD): một mẫu, nhanh nhưng nhiễu.'),
- (137, 146, 'Theo lô nhỏ (32 đến 512 mẫu) cân bằng cả hai, và là lựa chọn mặc định trong học sâu hiện nay.'),
- (146, 154, 'Dừng khi chuẩn gradient nhỏ hơn ε, khi mất mát gần như không đổi, hoặc khi đạt số vòng lặp tối đa.'),
- (154, 160, 'Luôn vẽ đường cong mất mát: đi ngang quá sớm gợi ý η quá nhỏ; răng cưa mạnh gợi ý η quá lớn.'),
- (160, 167, 'Tóm lại: đi ngược gradient, chọn η hợp lý, chuẩn hóa dữ liệu và theo dõi đường cong mất mát.'),
+SLOTS = [6, 7, 7, 7, 12, 8, 8, 8, 8, 8, 8, 10, 9, 8, 12, 8, 9, 9, 8, 7, 7]  # độ dài (giây) mỗi câu, đủ chỗ cho giọng đọc VieNeu-TTS
+TEXTS = [
+ 'Bài 9: Giải thuật giảm gradient — ý tưởng, tốc độ học và các biến thể.',
+ 'Khi hàm mất mát không có nghiệm dạng đóng, ta tìm cực tiểu bằng phương pháp lặp.',
+ 'Gradient chỉ hướng hàm số tăng nhanh nhất, nên ta bước theo hướng ngược lại: −∇J.',
+ 'Công thức cập nhật: w mới bằng w cũ trừ η nhân gradient, trong đó η là tốc độ học.',
+ 'Với J(w) = (w − 3)², w₀ = 0 và η = 0,1: w₁ = 0,6; w₂ = 1,08; w₃ = 1,464 — tiến dần về 3.',
+ 'Với nhiều tham số, gradient luôn vuông góc với đường đồng mức.',
+ 'Mỗi bước đi ngược hướng gradient; càng gần cực tiểu, gradient càng nhỏ nên bước càng ngắn.',
+ 'Thuật toán tự giảm tốc khi tới gần đích mà không cần can thiệp thêm.',
+ 'Tốc độ học η là siêu tham số quan trọng nhất. Xét ba cách chọn trên cùng hàm J(w) = (w − 3)².',
+ 'η quá nhỏ (0,05): thuật toán vẫn hội tụ nhưng cần rất nhiều vòng lặp.',
+ 'η hợp lý (0,3): hàm mất mát giảm nhanh và đều đặn về giá trị tối ưu.',
+ 'η quá lớn (1,05): mỗi bước vượt qua điểm cực tiểu, dao động ngày càng mạnh và phân kỳ.',
+ 'Với hàm lồi mạnh tham số m, gradient Lipschitz hằng số L và η = 1/L, sai số giảm theo cấp số nhân.',
+ 'Hệ số co (1 − m/L) phụ thuộc số điều kiện L/m: đường đồng mức càng dẹt, hội tụ càng chậm.',
+ 'Chuẩn hóa dữ liệu làm đường đồng mức tròn hơn, giảm số điều kiện nên thuật toán hội tụ nhanh hơn rõ rệt.',
+ 'Khi J là trung bình mất mát trên n mẫu, cách ước lượng gradient ở mỗi bước sinh ra ba biến thể.',
+ 'Theo lô: dùng toàn bộ n mẫu, quỹ đạo mượt nhưng chậm khi n lớn. Ngẫu nhiên (SGD): một mẫu, nhanh nhưng nhiễu.',
+ 'Theo lô nhỏ (32 đến 512 mẫu) cân bằng cả hai, và là lựa chọn mặc định trong học sâu hiện nay.',
+ 'Dừng khi chuẩn gradient nhỏ hơn ε, khi mất mát gần như không đổi, hoặc khi đạt số vòng lặp tối đa.',
+ 'Luôn vẽ đường cong mất mát: đi ngang quá sớm gợi ý η quá nhỏ; răng cưa mạnh gợi ý η quá lớn.',
+ 'Tóm lại: đi ngược gradient, chọn η hợp lý, chuẩn hóa dữ liệu và theo dõi đường cong mất mát.',
 ]
-DUR = SUBS[-1][1]
+_T = np.concatenate([[0], np.cumsum(SLOTS)])
+SUBS = [(float(_T[i]), float(_T[i + 1]), TEXTS[i]) for i in range(len(TEXTS))]
+DUR = float(_T[-1])
+NOW = [0.0]  # thời điểm toàn cục của khung hình đang vẽ
 
 def frame_base(fig, section, t):
     fig.clf(); fig.patch.set_facecolor('white')
     if section:
         fig.text(0.04, 0.945, 'BÀI 9 · GIẢI THUẬT GIẢM GRADIENT', fontsize=11, color=B, weight='bold')
         fig.text(0.04, 0.895, section, fontsize=19, color=DARK, weight='bold')
+    t = NOW[0]
     sub = next((s for a, b, s in SUBS if a <= t < b), '')
     if sub:
         fig.patches.append(FancyBboxPatch((0.08, 0.018), 0.84, 0.085, boxstyle='round,pad=0.006',
@@ -239,8 +244,9 @@ def s_stop(fig, t):
         for k, s in enumerate(summ):
             fig.text(0.55, 0.41 - 0.05 * k, '✓ ' + s, fontsize=13, color=DARK)
 
-SCENES = [(0, 6, s_title), (6, 34, s_idea), (34, 58, s_contour), (58, 92, s_lr),
-          (92, 120, s_cond), (120, 146, s_var), (146, DUR, s_stop)]
+_FIRST = [0, 1, 5, 8, 12, 15, 18]  # câu phụ đề mở đầu mỗi cảnh
+_FNS = [s_title, s_idea, s_contour, s_lr, s_cond, s_var, s_stop]
+SCENES = [(float(_T[a]), float(_T[b]) if b else DUR, f) for a, b, f in zip(_FIRST, _FIRST[1:] + [0], _FNS)]
 
 def srt_time(x):
     h, r = divmod(int(x * 1000), 3600000); m, r = divmod(r, 60000); s, ms = divmod(r, 1000)
@@ -253,11 +259,11 @@ if __name__ == '__main__':
     fig = plt.figure(figsize=(W / 100, H / 100), dpi=100)
     ff = subprocess.Popen(['ffmpeg', '-y', '-loglevel', 'error', '-f', 'rawvideo', '-pix_fmt', 'rgba', '-s', f'{W}x{H}',
                            '-r', str(FPS), '-i', '-', '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-crf', '20',
-                           '-movflags', '+faststart', 'bai9_giam_gradient.mp4'], stdin=subprocess.PIPE)
+                           '-movflags', '+faststart', 'bai9_giam_gradient_silent.mp4'], stdin=subprocess.PIPE)
     for n in range(int(DUR * FPS)):
         t = n / FPS
         a, b, fn = next(s for s in SCENES if s[0] <= t < s[1])
-        fn(fig, t - a); fig.canvas.draw()
+        NOW[0] = t; fn(fig, t - a); fig.canvas.draw()
         ff.stdin.write(fig.canvas.buffer_rgba().tobytes())
         if n % (FPS * 10) == 0: print(f'{t:.0f}s', flush=True)
     ff.stdin.close(); ff.wait()
