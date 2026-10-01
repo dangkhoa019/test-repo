@@ -6,7 +6,7 @@ Ký hiệu toán được viết lại theo cách đọc để TTS phát âm đ�
 import sys, json, wave, numpy as np
 from vieneu import Vieneu
 
-VOICE = sys.argv[1] if len(sys.argv) > 1 else 'Minh Triết'
+VOICE = sys.argv[1] if len(sys.argv) > 1 else 'Adam'
 SPOKEN = [
  'Bài chín: Giải thuật giảm gradient. Ý tưởng, tốc độ học, và các biến thể.',
  'Khi hàm mất mát không có nghiệm dạng đóng, ta tìm cực tiểu bằng phương pháp lặp.',
