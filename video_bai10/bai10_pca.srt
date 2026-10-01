@@ -1,0 +1,80 @@
+1
+00:00:00,000 --> 00:00:05,000
+Bài 10: Phân tích thành phần chính (PCA).
+
+2
+00:00:05,000 --> 00:00:13,500
+Dữ liệu thực tế thường có số chiều rất lớn: một ảnh xám 100×100 đã là véc tơ 10 000 chiều.
+
+3
+00:00:13,500 --> 00:00:21,000
+Số chiều cao gây tốn chi phí tính toán, khó trực quan hóa, và dữ liệu thưa thớt khiến mô hình dễ quá khớp.
+
+4
+00:00:21,000 --> 00:00:28,500
+PCA tìm một không gian con k chiều sao cho khi chiếu dữ liệu lên đó, phương sai giữ lại là lớn nhất.
+
+5
+00:00:28,500 --> 00:00:34,000
+Trước hết, trừ trung bình để đưa tâm dữ liệu về gốc tọa độ.
+
+6
+00:00:34,000 --> 00:00:43,000
+Chiếu dữ liệu lên hướng đơn vị u, các giá trị chiếu zᵢ = uᵀxᵢ có phương sai bằng uᵀSu.
+
+7
+00:00:43,000 --> 00:00:53,000
+Xoay hướng u: phương sai thay đổi, lớn nhất ở một hướng và nhỏ nhất ở hướng vuông góc với nó.
+
+8
+00:00:53,000 --> 00:01:02,000
+Bài toán: cực đại uᵀSu với ràng buộc ‖u‖₂ = 1 — chính là thương Rayleigh ở Bài 3.
+
+9
+00:01:02,000 --> 00:01:11,500
+Dùng nhân tử Lagrange, điều kiện dừng cho Su = λu: u là véc tơ riêng của S và phương sai đạt được bằng λ.
+
+10
+00:01:11,500 --> 00:01:19,000
+Vậy hướng giữ nhiều phương sai nhất là véc tơ riêng ứng với giá trị riêng lớn nhất: thành phần chính thứ nhất.
+
+11
+00:01:19,000 --> 00:01:28,000
+Thuật toán: trừ trung bình, tính S = XcᵀXc/n, phân rã phổ S = QΛQᵀ và sắp các giá trị riêng giảm dần.
+
+12
+00:01:28,000 --> 00:01:36,000
+Chọn k véc tơ riêng đầu tiên Uₖ, chiếu Z = XcUₖ; khôi phục xấp xỉ bằng ZUₖᵀ.
+
+13
+00:01:36,000 --> 00:01:43,000
+Với k = 1, mỗi điểm được thay bằng hình chiếu của nó lên trục thành phần chính thứ nhất.
+
+14
+00:01:43,000 --> 00:01:54,500
+Trong thực hành nên tính PCA qua SVD của Xc = UΣVᵀ: các cột của V là thành phần chính và λᵢ = σᵢ²/n.
+
+15
+00:01:54,500 --> 00:02:02,500
+Tỉ lệ phương sai giải thích bởi k thành phần đầu: ρₖ = (λ₁ + … + λₖ) / (λ₁ + … + λ_d).
+
+16
+00:02:02,500 --> 00:02:11,500
+Chọn k nhỏ nhất để ρₖ vượt một ngưỡng, thường là 90% hoặc 95%, hoặc tìm điểm gãy trên đồ thị giá trị riêng.
+
+17
+00:02:11,500 --> 00:02:19,500
+Ở ví dụ này, bốn thành phần đầu giữ khoảng 88% phương sai, nên cần năm thành phần để vượt ngưỡng 90%.
+
+18
+00:02:19,500 --> 00:02:28,000
+Lưu ý: PCA là phương pháp không giám sát, không dùng nhãn y — hướng phương sai lớn nhất chưa chắc phân biệt lớp tốt nhất.
+
+19
+00:02:28,000 --> 00:02:37,500
+PCA nhạy với thang đo nên cần chuẩn hóa; phép chuẩn hóa và phép chiếu chỉ ước lượng trên tập huấn luyện để tránh rò rỉ dữ liệu.
+
+20
+00:02:37,500 --> 00:02:45,500
+Tóm lại: PCA tìm các hướng giữ nhiều phương sai nhất — chính là các véc tơ riêng của ma trận hiệp phương sai.
+
