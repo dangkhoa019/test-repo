@@ -1,0 +1,64 @@
+1
+00:00:00,000 --> 00:00:05,000
+Bài 2: Không gian véc tơ, ánh xạ tuyến tính và chuẩn.
+
+2
+00:00:05,000 --> 00:00:16,500
+Không gian véc tơ là tập V với phép cộng và nhân vô hướng thỏa tám tiên đề; ℝⁿ, tập ma trận cùng cỡ, tập đa thức bậc ≤ k đều là ví dụ.
+
+3
+00:00:16,500 --> 00:00:26,000
+Không gian con phải chứa 0 và khép kín với phép cộng, phép nhân vô hướng. Đường x₂ = 2x₁ là một không gian con của ℝ².
+
+4
+00:00:26,000 --> 00:00:34,000
+Đường x₂ = 2x₁ + 1 không đi qua gốc tọa độ nên không là không gian con, dù nó cũng là một đường thẳng.
+
+5
+00:00:34,000 --> 00:00:45,500
+Hệ v₁, …, vₖ độc lập tuyến tính nếu α₁v₁ + … + αₖvₖ = 0 chỉ khi mọi αᵢ = 0. Cơ sở là hệ độc lập tuyến tính sinh ra cả không gian.
+
+6
+00:00:45,500 --> 00:00:55,500
+Số phần tử của cơ sở là số chiều. Khi các cột của X gần phụ thuộc tuyến tính (đa cộng tuyến), XᵀX gần suy biến.
+
+7
+00:00:55,500 --> 00:01:06,000
+Ánh xạ tuyến tính T(x) = Ax: cột thứ j của A là ảnh T(eⱼ) của véc tơ cơ sở eⱼ; đường thẳng vẫn là đường thẳng, gốc giữ nguyên.
+
+8
+00:01:06,000 --> 00:01:17,000
+Định lý hạng – số chiều: dim null(A) + rank A = n. Khi số đặc trưng vượt số mẫu, null(X) ≠ {0} nên có vô số nghiệm bình phương nhỏ nhất.
+
+9
+00:01:17,000 --> 00:01:27,500
+Tích vô hướng ⟨x, y⟩ = xᵀy sinh ra độ dài ‖x‖₂ và góc: cos θ = ⟨x, y⟩ / (‖x‖₂‖y‖₂) — độ tương tự cosin.
+
+10
+00:01:27,500 --> 00:01:38,500
+Hình chiếu trực giao của y lên đường sinh bởi u: proj = (⟨y, u⟩ / ⟨u, u⟩)·u — hạt nhân của phương pháp bình phương nhỏ nhất.
+
+11
+00:01:38,500 --> 00:01:50,000
+Chuẩn ℓₚ: ‖x‖ₚ = (Σ|xᵢ|ᵖ)^(1/p). Ba chuẩn thông dụng: ℓ₁, ℓ₂ và ℓ∞ với ‖x‖∞ = max |xᵢ|.
+
+12
+00:01:50,000 --> 00:01:59,500
+Ví dụ x = (3, −4): ‖x‖₁ = 7, ‖x‖₂ = 5, ‖x‖∞ = 4. Hình cầu đơn vị thay đổi hình dạng theo p.
+
+13
+00:01:59,500 --> 00:02:11,000
+Góc nhọn của hình thoi ℓ₁ nằm trên trục tọa độ — lý do LASSO đẩy nhiều hệ số về đúng 0; chuẩn ℓ₂ chỉ làm các hệ số nhỏ lại.
+
+14
+00:02:11,000 --> 00:02:20,000
+Mọi chuẩn sinh ra một khoảng cách d(x, y) = ‖x − y‖ — nền tảng của k láng giềng gần nhất và phân cụm k-means.
+
+15
+00:02:20,000 --> 00:02:28,500
+Đặc trưng có đơn vị lớn sẽ lấn át khoảng cách, nên cần chuẩn hóa z-score: zᵢⱼ = (xᵢⱼ − μⱼ)/σⱼ.
+
+16
+00:02:28,500 --> 00:02:39,500
+Tóm lại: không gian con chứa gốc; cơ sở cho số chiều; ánh xạ tuyến tính ↔ ma trận; tích vô hướng cho góc và hình chiếu; ℓ₁ cho nghiệm thưa.
+

@@ -1,0 +1,72 @@
+1
+00:00:00,000 --> 00:00:05,000
+Bài 1: Ma trận và các phép toán trên ma trận.
+
+2
+00:00:05,000 --> 00:00:13,500
+Sau khi số hóa, mỗi quan sát — một bức ảnh, một khách hàng, một câu văn — trở thành một véc tơ trong ℝⁿ.
+
+3
+00:00:13,500 --> 00:00:21,000
+Quy ước: véc tơ là véc tơ cột. Cộng hai véc tơ theo từng thành phần, minh họa bằng quy tắc hình bình hành.
+
+4
+00:00:21,000 --> 00:00:28,500
+Ma trận m×n là bảng số gồm m hàng và n cột; có thể nhìn theo phần tử, theo cột hoặc theo hàng.
+
+5
+00:00:28,500 --> 00:00:38,000
+Tích AB chỉ thực hiện được khi số cột của A bằng số hàng của B; cᵢⱼ là tích vô hướng của hàng i của A với cột j của B.
+
+6
+00:00:38,000 --> 00:00:49,000
+Ví dụ 1.1: A cỡ 2×3, B cỡ 3×2 nên AB có cỡ 2×2. Ta tính lần lượt từng phần tử.
+
+7
+00:00:49,000 --> 00:00:58,500
+Kết quả AB = [2  −5; 26  14]. Lưu ý BA có cỡ 3×3 nên chắc chắn khác AB.
+
+8
+00:00:58,500 --> 00:01:05,000
+Tích Ax là một tổ hợp tuyến tính các cột của A: Ax = x₁a₁ + x₂a₂ + … + xₙaₙ.
+
+9
+00:01:05,000 --> 00:01:13,000
+Phép nhân có tính kết hợp và phân phối nhưng không giao hoán; chuyển vị của tích đảo thứ tự: (AB)ᵀ = BᵀAᵀ.
+
+10
+00:01:13,000 --> 00:01:22,500
+Ma trận trực giao (QᵀQ = I) bảo toàn tích vô hướng, độ dài và góc — về hình học là phép quay hoặc phản xạ.
+
+11
+00:01:22,500 --> 00:01:31,500
+Định thức đo hệ số co giãn diện tích (thể tích) của phép biến đổi; với ma trận 2×2: det = ad − bc.
+
+12
+00:01:31,500 --> 00:01:40,500
+Ma trận vuông khả nghịch khi và chỉ khi det A ≠ 0. Khi det A = 0, hình bị ép dẹt và không thể đảo ngược.
+
+13
+00:01:40,500 --> 00:01:48,500
+Trong thực hành không nên tính nghịch đảo tường minh để giải hệ: dùng np.linalg.solve(A, b) thay cho np.linalg.inv(A) @ b.
+
+14
+00:01:48,500 --> 00:01:57,500
+Hạng là số cột độc lập tuyến tính tối đa; hạng quyết định hệ Ax = b vô nghiệm, có nghiệm duy nhất hay vô số nghiệm.
+
+15
+00:01:57,500 --> 00:02:06,500
+Trong hồi quy, số mẫu thường lớn hơn nhiều số đặc trưng: hệ quá xác định, nói chung vô nghiệm, nên ta tìm nghiệm bình phương nhỏ nhất.
+
+16
+00:02:06,500 --> 00:02:13,500
+Ma trận thiết kế X ∈ ℝⁿˣᵈ: mỗi hàng là một mẫu quan sát, mỗi cột là một đặc trưng.
+
+17
+00:02:13,500 --> 00:02:22,000
+Toàn bộ dự đoán của mô hình tuyến tính chỉ là một phép nhân ŷ = Xw — nhanh hơn nhiều so với vòng lặp qua từng mẫu.
+
+18
+00:02:22,000 --> 00:02:32,500
+Tóm lại: phép nhân không giao hoán, (AB)ᵀ = BᵀAᵀ, det A ≠ 0 ⇔ A khả nghịch, và X ∈ ℝⁿˣᵈ là cách biểu diễn chuẩn của dữ liệu.
+

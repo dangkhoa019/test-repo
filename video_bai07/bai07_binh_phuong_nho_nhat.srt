@@ -1,0 +1,64 @@
+1
+00:00:00,000 --> 00:00:05,000
+Bài 7: Phương pháp bình phương nhỏ nhất.
+
+2
+00:00:05,000 --> 00:00:15,000
+Cho n quan sát (xᵢ, yᵢ). Khi n > d, hệ Xw = y thường vô nghiệm, nên ta tìm w làm nhỏ nhất tổng bình phương sai lệch: J(w) = ‖y − Xw‖₂².
+
+3
+00:00:15,000 --> 00:00:25,000
+Xoay đường thẳng: tổng bình phương các phần dư thay đổi, và đạt nhỏ nhất tại một vị trí duy nhất.
+
+4
+00:00:25,000 --> 00:00:38,500
+Vì sao bình phương? Khả vi mọi nơi, cho hàm toàn phương lồi có nghiệm dạng đóng, và trùng ước lượng hợp lý cực đại khi nhiễu chuẩn; nhược điểm: nhạy với ngoại lai.
+
+5
+00:00:38,500 --> 00:00:47,000
+Khai triển: J(w) = wᵀXᵀXw − 2yᵀXw + yᵀy, nên ∇J(w) = 2XᵀXw − 2Xᵀy.
+
+6
+00:00:47,000 --> 00:00:55,500
+Cho gradient bằng 0 được hệ phương trình chuẩn tắc XᵀXw = Xᵀy; nếu XᵀX khả nghịch thì w = (XᵀX)⁻¹Xᵀy.
+
+7
+00:00:55,500 --> 00:01:06,500
+Hessian 2XᵀX ⪰ 0 nên J lồi: mọi điểm dừng là cực tiểu toàn cục; nghiệm duy nhất khi các cột của X độc lập tuyến tính.
+
+8
+00:01:06,500 --> 00:01:13,500
+Ví dụ: ba điểm (0, 1), (1, 3), (2, 4). Ma trận thiết kế có cột hằng số 1 và cột x.
+
+9
+00:01:13,500 --> 00:01:23,000
+XᵀX = [3 3; 3 5], Xᵀy = (8, 11). Giải hệ được w₀ = 7/6, w₁ = 3/2: đường hồi quy y = 7/6 + 1,5x.
+
+10
+00:01:23,000 --> 00:01:33,000
+Ý nghĩa hình học: phần dư e = y − ŷ trực giao với mọi cột của X, nên ŷ = Xw là hình chiếu trực giao của y lên không gian cột col(X).
+
+11
+00:01:33,000 --> 00:01:42,000
+Ma trận chiếu P = X(XᵀX)⁻¹Xᵀ thỏa P² = P = Pᵀ: chiếu hai lần như chiếu một lần, và ma trận chiếu đối xứng.
+
+12
+00:01:42,000 --> 00:01:52,500
+Khi các cột của X phụ thuộc tuyến tính, XᵀX suy biến: dùng giả nghịch đảo (nghiệm chuẩn nhỏ nhất), thêm điều chuẩn λ‖w‖², hoặc giảm chiều.
+
+13
+00:01:52,500 --> 00:02:01,500
+Không nên tính nghịch đảo tường minh: dùng phân rã QR hoặc SVD của X, chẳng hạn np.linalg.lstsq.
+
+14
+00:02:01,500 --> 00:02:11,000
+Đánh giá mô hình: MSE, RMSE và R² = 1 − Σ(yᵢ − ŷᵢ)² / Σ(yᵢ − ȳ)² ∈ (−∞, 1].
+
+15
+00:02:11,000 --> 00:02:19,500
+Các chỉ số phải được tính trên tập kiểm tra, không phải tập huấn luyện, nếu không sẽ không phát hiện được quá khớp.
+
+16
+00:02:19,500 --> 00:02:31,000
+Tóm lại: bình phương nhỏ nhất giải XᵀXw = Xᵀy; nghiệm là hình chiếu trực giao của y lên col(X); dùng QR/SVD; đánh giá trên tập kiểm tra.
+

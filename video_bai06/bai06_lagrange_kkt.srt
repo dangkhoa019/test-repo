@@ -1,0 +1,68 @@
+1
+00:00:00,000 --> 00:00:05,000
+Bài 6: Nhân tử Lagrange, tính đối ngẫu và điều kiện KKT.
+
+2
+00:00:05,000 --> 00:00:13,500
+Cực tiểu f(x) với ràng buộc h(x) = 0: điều kiện ∇f = 0 không còn đúng, vì ta chỉ được di chuyển dọc theo mặt ràng buộc.
+
+3
+00:00:13,500 --> 00:00:22,500
+Tại nghiệm, đường đồng mức của f tiếp xúc với đường ràng buộc: hai gradient cùng phương, ∇f(x*) + λ∇h(x*) = 0.
+
+4
+00:00:22,500 --> 00:00:29,500
+Đó chính là điều kiện dừng của hàm Lagrange L(x, λ) = f(x) + λh(x) theo cả x và λ.
+
+5
+00:00:29,500 --> 00:00:45,000
+Ví dụ 2.4: min x₁² + x₂² với x₁ + x₂ = 2. Điều kiện dừng: x₁ = x₂ = −λ/2; thay vào ràng buộc: λ = −2, x* = (1, 1), giá trị nhỏ nhất bằng 2.
+
+6
+00:00:45,000 --> 00:00:57,000
+Tổng quát: L(x, λ, ν) = f₀(x) + Σλᵢfᵢ(x) + Σνⱼhⱼ(x) với λᵢ ≥ 0. Hàm đối ngẫu g(λ, ν) = inf_x L(x, λ, ν) luôn lõm.
+
+7
+00:00:57,000 --> 00:01:04,000
+Đối ngẫu yếu d* ≤ p* luôn đúng. Khi khoảng trống đối ngẫu p* − d* bằng 0, ta có đối ngẫu mạnh.
+
+8
+00:01:04,000 --> 00:01:12,000
+Điều kiện Slater: bài toán lồi có một điểm chấp nhận được nằm hẳn bên trong miền ràng buộc (fᵢ(x) < 0 với mọi i) ⇒ đối ngẫu mạnh.
+
+9
+00:01:12,000 --> 00:01:20,500
+Hệ điều kiện KKT gồm bốn nhóm: chấp nhận được của bài toán gốc, chấp nhận được của bài toán đối ngẫu, điều kiện bù và điều kiện dừng.
+
+10
+00:01:20,500 --> 00:01:29,500
+Điều kiện bù λᵢ*fᵢ(x*) = 0: hoặc nhân tử bằng 0, hoặc ràng buộc đạt dấu bằng — chỉ ràng buộc đang hoạt động mới có nhân tử dương.
+
+11
+00:01:29,500 --> 00:01:44,500
+Ví dụ 2.5: min x₁² + x₂² với x₁ + x₂ ≥ 2. Trường hợp λ = 0 cho x = 0, vi phạm ràng buộc; trường hợp λ > 0 cho λ = 2 và x* = (1, 1).
+
+12
+00:01:44,500 --> 00:01:54,000
+Ngược lại, với ràng buộc x₁ + x₂ ≥ −1, gốc tọa độ đã chấp nhận được: ràng buộc không hoạt động và λ* = 0.
+
+13
+00:01:54,000 --> 00:02:01,500
+Với bài toán lồi thỏa điều kiện Slater, KKT vừa là điều kiện cần vừa là điều kiện đủ của nghiệm tối ưu.
+
+14
+00:02:01,500 --> 00:02:14,000
+SVM lề cứng tìm siêu phẳng có lề rộng nhất: min ½‖w‖₂² với yᵢ(wᵀxᵢ + b) ≥ 1 — một bài toán quy hoạch toàn phương.
+
+15
+00:02:14,000 --> 00:02:21,500
+Bài toán đối ngẫu chỉ chứa dữ liệu qua các tích vô hướng xᵢᵀxⱼ, nhờ đó áp dụng được thủ thuật hạt nhân.
+
+16
+00:02:21,500 --> 00:02:31,500
+Theo điều kiện bù, αᵢ > 0 chỉ với các điểm nằm đúng trên biên lề — các véc tơ hỗ trợ; mô hình chỉ phụ thuộc vào những điểm này.
+
+17
+00:02:31,500 --> 00:02:44,000
+Tóm lại: Lagrange biến ràng buộc thành điểm dừng; hàm đối ngẫu luôn lõm, d* ≤ p*; KKT với điều kiện bù giải thích véc tơ hỗ trợ trong SVM.
+

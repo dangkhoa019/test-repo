@@ -1,0 +1,60 @@
+1
+00:00:00,000 --> 00:00:05,000
+Bài 5: Tập lồi, hàm lồi và bài toán tối ưu lồi.
+
+2
+00:00:05,000 --> 00:00:15,000
+Tập C lồi nếu với mọi x, y ∈ C và t ∈ [0, 1], điểm tx + (1 − t)y vẫn thuộc C — trực quan: tập không có chỗ lõm.
+
+3
+00:00:15,000 --> 00:00:23,500
+Ví dụ tập lồi: ℝᵈ, nửa không gian aᵀx ≤ b, hình cầu theo mọi chuẩn, mọi không gian con. Giao của các tập lồi vẫn là tập lồi.
+
+4
+00:00:23,500 --> 00:00:34,000
+Hàm f lồi nếu f(tx + (1 − t)y) ≤ t·f(x) + (1 − t)·f(y): dây cung luôn nằm trên đồ thị.
+
+5
+00:00:34,000 --> 00:00:43,500
+Lồi ngặt: bất đẳng thức ngặt khi x ≠ y và t ∈ (0, 1). Lồi mạnh tham số m > 0: hàm f(x) − (m/2)‖x‖₂² vẫn lồi.
+
+6
+00:00:43,500 --> 00:00:53,000
+Lồi mạnh ⇒ lồi ngặt ⇒ lồi. Hàm lồi không có cực tiểu địa phương giả; hàm lồi ngặt có nghiệm duy nhất nếu nghiệm tồn tại.
+
+7
+00:00:53,000 --> 00:01:00,500
+Tiêu chuẩn bậc nhất: f khả vi lồi ⇔ f(y) ≥ f(x) + ∇f(x)ᵀ(y − x) — đồ thị luôn nằm trên mọi tiếp tuyến.
+
+8
+00:01:00,500 --> 00:01:14,500
+Tiêu chuẩn bậc hai: f lồi ⇔ ∇²f(x) ⪰ 0; ∇²f(x) ≻ 0 ⇒ lồi ngặt; lồi mạnh tham số m ⇔ ∇²f(x) ⪰ mI.
+
+9
+00:01:14,500 --> 00:01:23,500
+Phép toán bảo toàn tính lồi: nhân với số không âm, lấy tổng, hợp với ánh xạ afin, lấy cực đại; mọi chuẩn đều là hàm lồi.
+
+10
+00:01:23,500 --> 00:01:36,500
+Ví dụ 2.3: J(w) = ‖Xw − y‖₂² + λ‖w‖₂² có ∇²J = 2XᵀX + 2λI ⪰ 2λI ≻ 0 — lồi mạnh, nghiệm duy nhất kể cả khi XᵀX suy biến.
+
+11
+00:01:36,500 --> 00:01:48,500
+Bài toán tối ưu lồi: f₀ và các fᵢ lồi, các hⱼ afin. Định lý: mọi cực tiểu địa phương đều là cực tiểu toàn cục.
+
+12
+00:01:48,500 --> 00:02:00,000
+Ý chứng minh: nếu có x tốt hơn x*, mọi điểm trên đoạn nối x* với x đều tốt hơn x*, kể cả các điểm rất gần x* — mâu thuẫn.
+
+13
+00:02:00,000 --> 00:02:12,000
+Vì vậy hồi quy tuyến tính, hồi quy logistic, SVM được ưa chuộng; mạng nơ-ron sâu có hàm mất mát phi lồi nên không có bảo đảm này.
+
+14
+00:02:12,000 --> 00:02:20,500
+Hai lớp bài toán lồi chuẩn: quy hoạch tuyến tính (LP) và quy hoạch toàn phương (QP). Huấn luyện SVM là một bài toán QP.
+
+15
+00:02:20,500 --> 00:02:32,000
+Tóm lại: tập lồi chứa trọn đoạn thẳng; hàm lồi có dây cung trên đồ thị; kiểm tra bằng ∇²f ⪰ 0; bài toán lồi: địa phương = toàn cục.
+

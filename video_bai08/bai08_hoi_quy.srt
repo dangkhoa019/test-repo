@@ -1,0 +1,60 @@
+1
+00:00:00,000 --> 00:00:05,000
+Bài 8: Các mô hình hồi quy.
+
+2
+00:00:05,000 --> 00:00:16,000
+Hồi quy tuyến tính: yᵢ = w₀ + w₁xᵢ₁ + … + w_d xᵢ_d + εᵢ = wᵀxᵢ + εᵢ, với xᵢ đã thêm thành phần hằng số 1.
+
+3
+00:00:16,000 --> 00:00:24,000
+Nếu nhiễu εᵢ độc lập cùng phân phối chuẩn N(0, σ²), ước lượng hợp lý cực đại của w trùng với nghiệm bình phương nhỏ nhất.
+
+4
+00:00:24,000 --> 00:00:33,000
+"Tuyến tính" là tuyến tính theo tham số w, không nhất thiết theo biến đầu vào — điều này mở ra cả một họ mô hình.
+
+5
+00:00:33,000 --> 00:00:41,500
+Hồi quy đa thức: thay x bằng ánh xạ đặc trưng ϕ(x) = (1, x, x², …, xᵏ) rồi dùng nguyên bộ máy bình phương nhỏ nhất.
+
+6
+00:00:41,500 --> 00:00:49,500
+Bậc quá thấp gây dưới khớp; bậc quá cao gây quá khớp — mô hình học thuộc cả nhiễu và tổng quát hóa kém.
+
+7
+00:00:49,500 --> 00:00:59,500
+Điều chuẩn thêm số hạng phạt độ lớn trọng số: ridge dùng λ‖w‖₂², LASSO dùng λ‖w‖₁.
+
+8
+00:00:59,500 --> 00:01:10,500
+Ridge có nghiệm dạng đóng w = (XᵀX + λI)⁻¹Xᵀy; XᵀX + λI luôn xác định dương khi λ > 0. Thường không phạt hệ số tự do w₀.
+
+9
+00:01:10,500 --> 00:01:22,000
+Khi λ tăng, các hệ số ridge nhỏ dần nhưng nói chung khác 0; các hệ số LASSO lần lượt về đúng 0 — LASSO tự chọn đặc trưng.
+
+10
+00:01:22,000 --> 00:01:31,000
+Tăng λ: sai số huấn luyện tăng dần, sai số kiểm tra giảm rồi tăng; chọn λ ở đáy đường kiểm tra bằng kiểm định chéo.
+
+11
+00:01:31,000 --> 00:01:38,000
+Phân loại nhị phân y ∈ {0, 1}: hàm sigmoid σ(z) = 1/(1 + e⁻ᶻ) biến điểm số wᵀx thành xác suất P(y = 1 | x).
+
+12
+00:01:38,000 --> 00:01:44,500
+Cực đại hợp lý tương đương cực tiểu entropy chéo J(w) = −Σ[yᵢ log pᵢ + (1 − yᵢ) log(1 − pᵢ)] — một hàm lồi.
+
+13
+00:01:44,500 --> 00:01:53,500
+Gradient có dạng gọn ∇J(w) = Xᵀ(p − y), nhưng phương trình ∇J = 0 phi tuyến nên không có nghiệm dạng đóng.
+
+14
+00:01:53,500 --> 00:02:02,500
+Huấn luyện bằng giảm gradient (Bài 9): biên quyết định wᵀx = 0 dần tách hai lớp, entropy chéo giảm dần.
+
+15
+00:02:02,500 --> 00:02:15,000
+Tóm lại: tuyến tính theo tham số; mở rộng đặc trưng cho quan hệ phi tuyến; ridge thu nhỏ, LASSO cho nghiệm thưa; logistic dùng sigmoid và entropy chéo.
+

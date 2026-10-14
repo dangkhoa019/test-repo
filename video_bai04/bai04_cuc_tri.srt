@@ -1,0 +1,68 @@
+1
+00:00:00,000 --> 00:00:05,000
+Bài 4: Đạo hàm và bài toán cực trị không ràng buộc.
+
+2
+00:00:05,000 --> 00:00:13,500
+Đạo hàm f′(x) đo tốc độ thay đổi tức thời — hệ số góc của tiếp tuyến. Muốn giảm f, hãy đi ngược dấu đạo hàm.
+
+3
+00:00:13,500 --> 00:00:23,000
+Khai triển Taylor xấp xỉ f quanh một điểm: f(x + h) ≈ f(x) + f′(x)h + ½f″(x)h².
+
+4
+00:00:23,000 --> 00:00:30,000
+Dạng nhiều biến: f(x + h) ≈ f(x) + ∇f(x)ᵀh + ½hᵀ∇²f(x)h — công cụ chứng minh chủ yếu của chương này.
+
+5
+00:00:30,000 --> 00:00:40,500
+Đạo hàm theo hướng u (‖u‖₂ = 1): D_u f(x) = ∇f(x)ᵀu, lớn nhất khi u cùng hướng với ∇f (bất đẳng thức Cauchy – Schwarz).
+
+6
+00:00:40,500 --> 00:00:51,500
+Ví dụ 2.1: f = x₁² + 3x₁x₂ + 2x₂² tại (1, 2) có ∇f = (8, 11); với u = (3/5, 4/5): D_u f = 68/5 = 13,6, rất gần ‖∇f‖₂ ≈ 13,60.
+
+7
+00:00:51,500 --> 00:01:00,500
+Bài toán tối ưu chuẩn tắc: cực tiểu f₀(x) với fᵢ(x) ≤ 0 và hⱼ(x) = 0. Cực đại f tương đương cực tiểu −f.
+
+8
+00:01:00,500 --> 00:01:08,000
+Cực tiểu địa phương chỉ tốt nhất trong một lân cận; cực tiểu toàn cục tốt nhất trên toàn bộ tập chấp nhận được.
+
+9
+00:01:08,000 --> 00:01:17,000
+Thuật toán chỉ dùng thông tin địa phương có thể dừng ở cực tiểu địa phương — khó khăn cốt lõi của tối ưu phi lồi.
+
+10
+00:01:17,000 --> 00:01:25,500
+Điều kiện cần bậc nhất: nếu x* là cực tiểu địa phương và f khả vi liên tục thì ∇f(x*) = 0; x* được gọi là điểm dừng.
+
+11
+00:01:25,500 --> 00:01:32,500
+Điều kiện này chưa đủ: f(x) = x³ có f′(0) = 0 nhưng x = 0 không phải là cực trị.
+
+12
+00:01:32,500 --> 00:01:41,000
+Tại điểm dừng, Taylor cho f(x* + h) ≈ f(x*) + ½hᵀ∇²f(x*)h: dấu của dạng toàn phương quyết định loại điểm dừng.
+
+13
+00:01:41,000 --> 00:01:50,000
+Hessian xác định dương: cực tiểu ngặt; xác định âm: cực đại ngặt; không xác định dấu: điểm yên ngựa; suy biến: chưa kết luận được.
+
+14
+00:01:50,000 --> 00:01:59,500
+Ví dụ 2.2: f = x₁² + x₂³ − 3x₂ có ∇f = (2x₁, 3x₂² − 3), cho hai điểm dừng (0, 1) và (0, −1).
+
+15
+00:01:59,500 --> 00:02:12,000
+Hessian = diag(2, 6x₂): tại (0, 1) là diag(2, 6) → cực tiểu địa phương ngặt; tại (0, −1) là diag(2, −6) → điểm yên ngựa.
+
+16
+00:02:12,000 --> 00:02:20,500
+Hàm không bị chặn dưới vì f(0, x₂) → −∞ khi x₂ → −∞, nên không tồn tại cực tiểu toàn cục.
+
+17
+00:02:20,500 --> 00:02:31,000
+Tóm lại: Taylor là công cụ trung tâm; ∇f = 0 là điều kiện cần; Hessian phân loại điểm dừng; bài toán phi lồi có thể mắc kẹt ở cực tiểu địa phương.
+
