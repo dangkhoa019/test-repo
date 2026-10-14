@@ -3,6 +3,7 @@ Thời lượng mỗi câu lấy từ tts/durations.json (chạy make_voice.py t
 Chạy: python make_video.py  -> bai10_pca_silent.mp4 ; sau đó python mux_audio.py
 """
 import json, subprocess, textwrap
+import os
 import numpy as np, matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -27,6 +28,7 @@ except FileNotFoundError:
 _T = np.concatenate([[0], np.cumsum(SLOTS)])
 SUBS = [(float(_T[i]), float(_T[i + 1]), TEXTS[i]) for i in range(len(TEXTS))]
 DUR = float(_T[-1])
+NOSUB = os.environ.get('NOSUB') == '1'  # bản không phụ đề để biên tập
 NOW = [0.0]
 st = lambda i: NOW[0] - _T[i]                              # số giây kể từ khi câu i bắt đầu
 pr = lambda i, d=None: float(np.clip(st(i) / (d or SLOTS[i]), 0, 1))  # tiến độ trong câu i
@@ -49,7 +51,7 @@ def frame_base(fig, section):
     if section:
         fig.text(0.04, 0.945, 'BÀI 10 · PHÂN TÍCH THÀNH PHẦN CHÍNH', fontsize=11, color=B, weight='bold')
         fig.text(0.04, 0.895, section, fontsize=19, color=DARK, weight='bold')
-    sub = next((s for a, b, s in SUBS if a <= NOW[0] < b), '')
+    sub = '' if NOSUB else next((s for a, b, s in SUBS if a <= NOW[0] < b), '')
     if sub:
         fig.patches.append(FancyBboxPatch((0.06, 0.018), 0.88, 0.085, boxstyle='round,pad=0.006',
                            transform=fig.transFigure, fc='#1c1f2aE6', ec='none'))
@@ -266,7 +268,7 @@ if __name__ == '__main__':
     fig = plt.figure(figsize=(W / 100, H / 100), dpi=100)
     ff = subprocess.Popen(['ffmpeg', '-y', '-loglevel', 'error', '-f', 'rawvideo', '-pix_fmt', 'rgba', '-s', f'{W}x{H}',
                            '-r', str(FPS), '-i', '-', '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-crf', '20',
-                           '-movflags', '+faststart', 'bai10_pca_silent.mp4'], stdin=subprocess.PIPE)
+                           '-movflags', '+faststart', ('bai10_pca_silent.mp4'.replace('_silent', '_khong_phu_de_silent') if NOSUB else 'bai10_pca_silent.mp4')], stdin=subprocess.PIPE)
     for n in range(int(DUR * FPS)):
         t = n / FPS; NOW[0] = t
         fn = next(f for a, b, f in SCENES if a <= t < b)

@@ -2,6 +2,7 @@
 Dựng bằng matplotlib + ffmpeg. Chạy: python make_video.py  -> bai9_giam_gradient.mp4 + .srt
 """
 import subprocess, textwrap
+import os
 import numpy as np, matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -42,6 +43,7 @@ TEXTS = [
 _T = np.concatenate([[0], np.cumsum(SLOTS)])
 SUBS = [(float(_T[i]), float(_T[i + 1]), TEXTS[i]) for i in range(len(TEXTS))]
 DUR = float(_T[-1])
+NOSUB = os.environ.get('NOSUB') == '1'  # bản không phụ đề để biên tập
 NOW = [0.0]  # thời điểm toàn cục của khung hình đang vẽ
 
 def frame_base(fig, section, t):
@@ -50,7 +52,7 @@ def frame_base(fig, section, t):
         fig.text(0.04, 0.945, 'BÀI 9 · GIẢI THUẬT GIẢM GRADIENT', fontsize=11, color=B, weight='bold')
         fig.text(0.04, 0.895, section, fontsize=19, color=DARK, weight='bold')
     t = NOW[0]
-    sub = next((s for a, b, s in SUBS if a <= t < b), '')
+    sub = '' if NOSUB else next((s for a, b, s in SUBS if a <= t < b), '')
     if sub:
         fig.patches.append(FancyBboxPatch((0.08, 0.018), 0.84, 0.085, boxstyle='round,pad=0.006',
                            transform=fig.transFigure, fc='#1c1f2aE6', ec='none'))
@@ -259,7 +261,7 @@ if __name__ == '__main__':
     fig = plt.figure(figsize=(W / 100, H / 100), dpi=100)
     ff = subprocess.Popen(['ffmpeg', '-y', '-loglevel', 'error', '-f', 'rawvideo', '-pix_fmt', 'rgba', '-s', f'{W}x{H}',
                            '-r', str(FPS), '-i', '-', '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-crf', '20',
-                           '-movflags', '+faststart', 'bai9_giam_gradient_silent.mp4'], stdin=subprocess.PIPE)
+                           '-movflags', '+faststart', ('bai9_giam_gradient_silent.mp4'.replace('_silent', '_khong_phu_de_silent') if NOSUB else 'bai9_giam_gradient_silent.mp4')], stdin=subprocess.PIPE)
     for n in range(int(DUR * FPS)):
         t = n / FPS
         a, b, fn = next(s for s in SCENES if s[0] <= t < s[1])

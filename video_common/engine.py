@@ -7,6 +7,7 @@ Chạy trong thư mục bài:  python make_video.py voice | render | mux | all  
   voice  : tạo giọng đọc VieNeu-TTS cho từng câu (tts/NN.wav, tts/durations.json)
   render : dựng hình (độ dài mỗi câu = giọng đọc + 1,2 s, lưu cố định trong tts/slots.json)
   mux    : ghép giọng vào video, xuất <tên>.mp4 và <tên>.srt
+Thêm --nosub để dựng bản không phụ đề (<tên>_khong_phu_de.mp4), dùng kèm file .srt khi biên tập.
 """
 import json, os, shutil, subprocess, sys, textwrap, wave
 import numpy as np, matplotlib
@@ -29,6 +30,8 @@ class Lesson:
         self.label, self.texts, self.spoken, self.out, self.chapter = label, texts, spoken, outname, chapter
         self.mins = mins or {}
         self.now = 0.0
+        self.nosub = '--nosub' in sys.argv  # bản không phụ đề để biên tập (CapCut…)
+        if self.nosub: self.out += '_khong_phu_de'
         os.makedirs('tts', exist_ok=True)
         self._timing()
 
@@ -60,7 +63,7 @@ class Lesson:
         if section:
             fig.text(0.04, 0.945, self.label.upper(), fontsize=11, color=B, weight='bold')
             fig.text(0.04, 0.895, section, fontsize=19, color=DARK, weight='bold')
-        sub = next((s for a, b, s in self.subs if a <= self.now < b), '')
+        sub = '' if self.nosub else next((s for a, b, s in self.subs if a <= self.now < b), '')
         if sub:
             fig.patches.append(FancyBboxPatch((0.06, 0.018), 0.88, 0.085, boxstyle='round,pad=0.006',
                                transform=fig.transFigure, fc='#1c1f2aE6', ec='none'))
