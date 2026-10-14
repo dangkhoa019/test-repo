@@ -1,2 +1,3 @@
 tts/*.wav
 __pycache__/
+*_silent.mp4
