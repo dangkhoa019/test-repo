@@ -13,7 +13,7 @@ Mười bài giảng (Bài 1–10) dựng lại bằng [Manim Community](https:/
 
 ## Cách dựng
 
-Cần: Python 3.10+, `manim` 0.19+, TeX Live (gói `latex-extra`, `lang-other` cho tiếng Việt), `dvisvgm`, `ffmpeg`.
+Cần: Python 3.10+, `manim` 0.22 (đã thử với 0.22.0), TeX Live (gói `latex-extra`, `lang-other` cho tiếng Việt), `dvisvgm`, `ffmpeg`.
 
 ```bash
 cd manim
