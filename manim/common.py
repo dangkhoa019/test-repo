@@ -123,3 +123,28 @@ def axes(xr, yr, w, h, pos, nums=True, fs=18):
 
 def bullets(items, size=28, buff=0.42):
     return VGroup(*[VT('✓  ' + s_, size) for s_ in items]).arrange(DOWN, aligned_edge=LEFT, buff=buff).shift(DOWN * 0.2)
+
+
+def clip_poly(P, a, b):
+    """Cắt đa giác P (danh sách điểm 2D) bởi nửa mặt phẳng a·x ≤ b (Sutherland–Hodgman)."""
+    out = []
+    for k in range(len(P)):
+        p, q = np.asarray(P[k], float), np.asarray(P[(k + 1) % len(P)], float); fp, fq = a @ p - b, a @ q - b
+        if fp <= 0: out.append(p)
+        if fp * fq < 0: out.append(p + (q - p) * fp / (fp - fq))
+    return out
+
+
+def seg_in_box(a, c, xr, yr):
+    """Đoạn của đường thẳng a·x = c nằm trong hình chữ nhật xr × yr (trả về 2 điểm hoặc None)."""
+    pts = []
+    for x in xr:
+        if abs(a[1]) > 1e-12:
+            y = (c - a[0] * x) / a[1]
+            if yr[0] - 1e-9 <= y <= yr[1] + 1e-9: pts.append((x, y))
+    for y in yr:
+        if abs(a[0]) > 1e-12:
+            x = (c - a[1] * y) / a[0]
+            if xr[0] - 1e-9 <= x <= xr[1] + 1e-9: pts.append((x, y))
+    if len(pts) < 2: return None
+    pts = sorted(pts); return np.array(pts[0]), np.array(pts[-1])

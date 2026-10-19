@@ -5,16 +5,6 @@ FC = lambda x: 0.35 * (x - 0.5) ** 2 + 0.6
 RB = lambda th: 1 + 0.5 * np.cos(3 * th)          # biên tập không lồi (dạng cánh hoa)
 
 
-def clip_poly(P, a, b):
-    """Cắt đa giác P bởi nửa mặt phẳng a·x ≤ b (Sutherland–Hodgman)."""
-    out = []
-    for k in range(len(P)):
-        p, q = P[k], P[(k + 1) % len(P)]; fp, fq = a @ p - b, a @ q - b
-        if fp <= 0: out.append(p)
-        if fp * fq < 0: out.append(p + (q - p) * fp / (fp - fq))
-    return out
-
-
 class Bai(Lesson):
     LESSON = 'video_bai05'; LABEL = 'BÀI 5 · TẬP LỒI, HÀM LỒI VÀ BÀI TOÁN TỐI ƯU LỒI'; TEXTS = load_texts('video_bai05')
 
