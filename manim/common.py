@@ -148,3 +148,16 @@ def seg_in_box(a, c, xr, yr):
             if xr[0] - 1e-9 <= x <= xr[1] + 1e-9: pts.append((x, y))
     if len(pts) < 2: return None
     pts = sorted(pts); return np.array(pts[0]), np.array(pts[-1])
+
+
+def plot_clipped(ax, f, xr, yr, n=600, **kw):
+    """Vẽ y = f(x) nhưng chỉ phần nằm trong dải yr (bỏ các đoạn vọt ra ngoài)."""
+    xs = np.linspace(*xr, n); ok = (f(xs) >= yr[0]) & (f(xs) <= yr[1]); g = VGroup(); i = 0
+    while i < n:
+        if ok[i]:
+            j = i
+            while j + 1 < n and ok[j + 1]: j += 1
+            if j > i: g.add(ax.plot(f, x_range=[xs[i], xs[j]], **kw))
+            i = j + 1
+        else: i += 1
+    return g

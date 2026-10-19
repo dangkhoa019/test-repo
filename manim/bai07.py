@@ -185,14 +185,7 @@ class Bai(Lesson):
         self.line(14)
         for k_, deg in enumerate([3, 9]):
             c = np.polyfit(XT, YT, deg); a_ = axes([0, 1, 0.25], [-2, 2, 1], 5.4, 3.4, RIGHT * 3.3 * (2 * k_ - 1) + DOWN * 0.1, nums=False)
-            xs = np.linspace(0, 1, 600); ok_ = np.abs(np.polyval(c, xs)) <= 2; pieces = VGroup(); i = 0
-            while i < len(xs):
-                if ok_[i]:
-                    j = i
-                    while j + 1 < len(xs) and ok_[j + 1]: j += 1
-                    if j > i: pieces.add(a_.plot(lambda x: np.polyval(c, x), x_range=[xs[i], xs[j]], color=WHITE, stroke_width=3))
-                    i = j + 1
-                else: i += 1
+            pieces = plot_clipped(a_, lambda x: np.polyval(c, x), [0, 1], [-2, 2], color=WHITE, stroke_width=3)
             pts = VGroup(*[Dot(a_.c2p(x, y), color=O, radius=0.045, fill_opacity=0.7) for x, y in zip(XV, YV)], *[Dot(a_.c2p(x, y), color=B, radius=0.08) for x, y in zip(XT, YT)])
             rv = r2s(YV, np.polyval(c, XV))
             lab = VGroup(VT(f'đa thức bậc {deg}', 24), VT(f'R² huấn luyện = {vn(r2s(YT, np.polyval(c, XT)))}', 20, T if deg == 3 else INK),
