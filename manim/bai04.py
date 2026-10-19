@@ -26,12 +26,12 @@ class Bai(Lesson):
         ax = axes([-1.5, 4, 1], [-1.5, 4.5, 1], 6.6, 5.0, LEFT * 3 + DOWN * 0.45)
         self.play(Create(ax), Create(ax.plot(F1, x_range=[-1.3, 3.6], color=B, stroke_width=4)), run_time=1.2)
         x0 = ValueTracker(-1.0)
-        tan = always_redraw(lambda: ax.plot(lambda x: F1(x0.get_value()) + D1(x0.get_value()) * (x - x0.get_value()), x_range=[x0.get_value() - 1, x0.get_value() + 1], color=O, stroke_width=4))
+        tan = always_redraw(lambda: ax.plot(lambda x: F1(x0.get_value()) + D1(x0.get_value()) * (x - x0.get_value()), x_range=[x0.get_value() - 1.3 / np.hypot(1, D1(x0.get_value())), x0.get_value() + 1.3 / np.hypot(1, D1(x0.get_value()))], color=O, stroke_width=4))
         dot = always_redraw(lambda: Dot(ax.c2p(x0.get_value(), F1(x0.get_value())), color=O, radius=0.09))
         arr = always_redraw(lambda: Arrow(ax.c2p(x0.get_value(), F1(x0.get_value()) - 0.7), ax.c2p(x0.get_value() - 0.7 * np.sign(D1(x0.get_value())), F1(x0.get_value()) - 0.7), buff=0, color=T))
         val = always_redraw(lambda: VT(f"f′(x) = {vn(D1(x0.get_value()))}", 34, O).shift(RIGHT * 3.6 + UP * 0.2))
         self.play(FadeIn(tan), FadeIn(dot), FadeIn(arr), FadeIn(val), FadeIn(panel(M(r"f'(x)=\lim_{h\to 0}\frac{f(x+h)-f(x)}{h}", 38)).shift(RIGHT * 3.6 + UP * 1.7)),
-                  FadeIn(VT('mũi tên xanh: hướng làm f giảm (ngược dấu đạo hàm)', 20, T).shift(RIGHT * 3.6 + DOWN * 0.7)))
+                  FadeIn(VT('mũi tên xanh: hướng làm f giảm\n(ngược dấu đạo hàm)', 20, T).shift(RIGHT * 3.9 + DOWN * 0.8)))
         self.play(x0.animate.set_value(3.5), run_time=self.slots[1] - 2.5, rate_func=smooth); self.finish(1); self.remove(tan, dot, arr, val); self.clear_body()
 
         # 2–3 — Taylor
@@ -44,7 +44,7 @@ class Bai(Lesson):
         self.play(Create(l1), FadeIn(VT('bậc nhất', 22, O).shift(RIGHT * 3.6 + UP * 0.4)), run_time=1.5)
         self.play(Create(l2), FadeIn(VT('bậc hai', 22, T).shift(RIGHT * 3.6 + UP * 0.0)), run_time=1.5); self.finish(2)
         self.line(3)
-        self.play(FadeIn(panel(M(r'f(\mathbf{x}+\mathbf{h})\approx f(\mathbf{x})+\nabla f(\mathbf{x})^{\top}\mathbf{h}+\tfrac{1}{2}\mathbf{h}^{\top}\nabla^2 f(\mathbf{x})\,\mathbf{h}', 30), color=O).shift(RIGHT * 3.4 + DOWN * 1.3)))
+        self.play(FadeIn(panel(M(r'f(\mathbf{x}+\mathbf{h})\approx f(\mathbf{x})+\nabla f(\mathbf{x})^{\top}\mathbf{h}+\tfrac{1}{2}\mathbf{h}^{\top}\nabla^2 f(\mathbf{x})\,\mathbf{h}', 30), color=O).to_edge(RIGHT, buff=0.3).shift(DOWN * 2.3)))
         self.finish(3); self.clear_body()
 
         # 4–5 — đạo hàm theo hướng (Ví dụ 2.1)
@@ -80,8 +80,8 @@ class Bai(Lesson):
         ax = axes([-2.7, 3.2, 1], [-3, 9.5, 2], 7.2, 5.0, LEFT * 2.6 + DOWN * 0.45)
         self.play(Create(ax), Create(ax.plot(F3, x_range=[-2.6, 3.1], color=B, stroke_width=4)), run_time=1.5)
         for x, lab, c, d in [(CR[0], 'cực tiểu địa phương', O, DOWN), (CR[1], 'cực đại địa phương', T, UP), (CR[2], 'cực tiểu toàn cục', R, DOWN)]:
-            self.play(FadeIn(Dot(ax.c2p(x, F3(x)), color=c, radius=0.09)), FadeIn(VT(lab, 20, c).next_to(ax.c2p(x, F3(x)), d, buff=0.25)), run_time=0.8)
-        self.play(FadeIn(M(r'f(x)=0{,}25x^4-0{,}5x^3-1{,}6x^2+1{,}2x+3', 28, LIGHT).shift(RIGHT * 4.2 + UP * 1.5)))
+            self.play(FadeIn(Dot(ax.c2p(x, F3(x)), color=c, radius=0.09)), FadeIn(VT(lab, 20, c).next_to(ax.c2p(x, F3(x)), d, buff=0.6 if c == O else 0.25)), run_time=0.8)
+        self.play(FadeIn(M(r'f(x)=0{,}25x^4-0{,}5x^3-1{,}6x^2+1{,}2x+3', 26, INK).to_edge(RIGHT, buff=0.35).shift(UP * 1.6)))
         self.finish(7)
         self.line(8)
         def gd(x0):
@@ -95,7 +95,7 @@ class Bai(Lesson):
         k = ValueTracker(0)
         for b, P in zip(balls, paths): b.add_updater(lambda m, P=P: m.move_to(ax.c2p(P[int(k.get_value())], F3(P[int(k.get_value())]))))
         info = VGroup(VT('Giảm gradient từ hai điểm xuất phát:', 22), VT(f'x₀ = −2,5  →  {vn(CR[0])} (mắc kẹt)', 22, O), VT(f'x₀ = 1,0  →  {vn(CR[2])} (toàn cục)', 22, R),
-                      VT('→ lý do bài toán lồi (Bài 5) quan trọng', 22, T)).arrange(DOWN, aligned_edge=LEFT, buff=0.3).shift(RIGHT * 4.3 + DOWN * 0.5)
+                      VT('→ lý do bài toán lồi (Bài 5) quan trọng', 22, T)).arrange(DOWN, aligned_edge=LEFT, buff=0.3).to_edge(RIGHT, buff=0.35).shift(DOWN * 0.4)
         self.play(k.animate.set_value(60), FadeIn(info[:3]), run_time=5, rate_func=linear)
         for b in balls: b.clear_updaters()
         self.play(FadeIn(info[3])); self.finish(8); self.clear_body()
@@ -111,7 +111,7 @@ class Bai(Lesson):
         ax = axes([-1.6, 1.6, 0.5], [-3, 3, 1], 5.6, 4.8, LEFT * 3.2 + DOWN * 0.45)
         self.play(Create(ax), Create(ax.plot(lambda x: x ** 3, x_range=[-1.44, 1.44], color=B, stroke_width=4)))
         self.play(Create(Line(ax.c2p(-0.8, 0), ax.c2p(0.8, 0), color=O, stroke_width=5)), FadeIn(Dot(ax.c2p(0, 0), color=O, radius=0.1)))
-        self.play(FadeIn(VGroup(row("$f(x)=x^3$:", "$f'(0)=0$", 'nhưng 0 không là cực trị', color=O), VT('∇f = 0 chỉ là điều kiện CẦN', 28), VT('→ cần kiểm tra thêm bằng đạo hàm bậc hai', 24, T)).arrange(DOWN, aligned_edge=LEFT, buff=0.4).shift(RIGHT * 3.0)))
+        self.play(FadeIn(VGroup(row("$f(x)=x^3$:", "$f'(0)=0$", 'nhưng 0 không là cực trị', color=O), VT('∇f = 0 chỉ là điều kiện CẦN', 28), VT('→ cần kiểm tra thêm bằng đạo hàm bậc hai', 24, T)).arrange(DOWN, aligned_edge=LEFT, buff=0.4).scale_to_fit_width(6.3).next_to(ax, RIGHT, buff=0.35)))
         self.finish(10); self.clear_body()
 
         # 11–12 — điều kiện bậc hai

@@ -115,3 +115,11 @@ def load_texts(lesson):
     if not os.path.exists(p): p = os.path.join(ROOT, lesson, 'make_video.py')
     spec = importlib.util.spec_from_file_location('nd_' + lesson, p); m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
     return m.TEXTS
+
+
+def axes(xr, yr, w, h, pos, nums=True, fs=18):
+    return Axes(x_range=xr, y_range=yr, x_length=w, y_length=h, axis_config={'color': LIGHT, 'include_numbers': nums, 'font_size': fs}).move_to(pos)
+
+
+def bullets(items, size=28, buff=0.42):
+    return VGroup(*[VT('✓  ' + s_, size) for s_ in items]).arrange(DOWN, aligned_edge=LEFT, buff=buff).shift(DOWN * 0.2)
