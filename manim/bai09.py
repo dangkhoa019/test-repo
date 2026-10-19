@@ -70,7 +70,7 @@ class Bai(Lesson):
         ax = axes([-1, 7, 1], [-1, 17, 4], 6.6, 5.0, LEFT * 3.0 + DOWN * 0.45)
         self.play(Create(ax), Create(ax.plot(J1, x_range=[-1, 7], color=B, stroke_width=4)), run_time=1.5)
         ball = Dot(ax.c2p(0, J1(0)), color=O, radius=0.13)
-        self.play(FadeIn(Star(5, outer_radius=0.17, color=T, fill_opacity=1).move_to(ax.c2p(3, 0))), FadeIn(VT('cực tiểu w* = 3', 20, T).move_to(ax.c2p(5.4, 1.0))),
+        self.play(FadeIn(Star(5, outer_radius=0.17, color=T, fill_opacity=1).move_to(ax.c2p(3, 0))), FadeIn(VT('cực tiểu w* = 3', 20, T).move_to(ax.c2p(3, 2.4))),
                   FadeIn(ball), FadeIn(VGroup(VT('w', 20, LIGHT).next_to(ax.x_axis, RIGHT, buff=0.1), VT('J(w)', 20, LIGHT).next_to(ax.y_axis, UP, buff=0.1))), run_time=1)
         self.finish(1)
         self.line(2)
@@ -78,7 +78,7 @@ class Bai(Lesson):
         sl = VT("độ dốc J'(0) = −6 < 0", 20).next_to(ax.c2p(0.5, 15), RIGHT, buff=0.1)
         self.play(Create(tg), FadeIn(sl), run_time=1)
         ar = Arrow(ax.c2p(0, 9), ax.c2p(1.7, 9), buff=0, color=O, stroke_width=6)
-        al = VT('−∇J: hướng giảm nhanh nhất', 20, O).next_to(ar, RIGHT, buff=0.15)
+        al = VT('−∇J: hướng giảm nhanh nhất', 20, O).next_to(ar, UP, buff=0.12, aligned_edge=LEFT)
         self.play(GrowArrow(ar), FadeIn(al), run_time=1.2)
         self.finish(2)
         self.line(3)
